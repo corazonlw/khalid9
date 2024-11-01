@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>لعبة الحب</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            font-family: 'Amiri', serif;
+            color: #ffffff;
+            text-align: center;
+            padding: 30px;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .question-box {
+            background-color: #ffffff;
+            color: #ff758c;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: 0 auto 20px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .answer-box {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .answer-box button {
+            background-color: #ff7eb3;
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .answer-box button:hover {
+            background-color: #ff4d6d;
+        }
+        .back-button {
+            background-color: #ff7eb3;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+        .back-button:hover {
+            background-color: #ff4d6d;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>لعبة الحب</h1>
+
+    <div id="game">
+        <!-- السؤال الأول -->
+        <div id="question1" class="question-box">
+            <p>أيَّها القلب الهائم، خبّرني من أنتِ في ضوء القمر؟</p>
+            <div class="answer-box">
+                <button onclick="showMessage('حصة', 'question1')">حصة</button>
+                <button onclick="showMessage('إيمان', 'question1')">إيمان</button>
+                <button onclick="showMessage('منيرة', 'question1')">منيرة</button>
+                <button onclick="showMessage('جواهر', 'question1')">جواهر</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showMessage(name, questionId) {
+            let message;
+            if (name === 'إيمان') {
+                message = "إيمان، يا نبض القلب ومهجة الفؤاد، كيف أصفك وأنتِ كل شيء، أنفاسي، أحلامي، وكل شوقي وحبّي معلق بكيانكِ. أنتِ قصيدة عشقي التي لا تنتهي.";
+                showQuestion2(message);  // الانتقال إلى السؤال الثاني إذا كانت الإجابة صحيحة
+            } else if (name === 'حصة') {
+                message = "أواه يا حصة! لست أنتِ .. حتى النسيم لا يحمل عطره، فلي معشوقة تُغني عن الكون وما فيه.";
+                showOnlyMessage(message, questionId);  // عدم الانتقال للسؤال التالي
+            } else if (name === 'منيرة') {
+                message = "منيرة، لا تضيئي قلبي، فقد خُصص نوره لإيمان وحدها، فهي الشمس والمصباح الوحيد في حياتي.";
+                showOnlyMessage(message, questionId);
+            } else if (name === 'جواهر') {
+                message = "جواهر، إن لمعانك لا يضاهي بريق قلب معشوقتي إيمان، فكل نفائسي ومجوهراتي معكوبة بحبها.";
+                showOnlyMessage(message, questionId);
+            }
+        }
+
+        function showOnlyMessage(message, questionId) {
+            document.getElementById("game").innerHTML = `
+                <div class="question-box">${message}</div>
+                <button class="back-button" onclick="goBack('${questionId}')">رجوع</button>
+            `;
+        }
+
+        function goBack(questionId) {
+            if (questionId === 'question1') {
+                showQuestion1();
+            } else if (questionId === 'question2') {
+                showQuestion2();
+            } else if (questionId === 'question3') {
+                showQuestion3();
+            }
+        }
+
+        function showQuestion1() {
+            document.getElementById("game").innerHTML = `
+                <div id="question1" class="question-box">
+                    <p>أيَّها القلب الهائم، خبّرني من أنتِ في ضوء القمر؟</p>
+                    <div class="answer-box">
+                        <button onclick="showMessage('حصة', 'question1')">حصة</button>
+                        <button onclick="showMessage('إيمان', 'question1')">إيمان</button>
+                        <button onclick="showMessage('منيرة', 'question1')">منيرة</button>
+                        <button onclick="showMessage('جواهر', 'question1')">جواهر</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showQuestion2(message) {
+            document.getElementById("game").innerHTML = `
+                <div id="question2" class="question-box">
+                    <p>أيا معشوقتي، أين تسكنين؟ في أيّ أرض تهيم روحي بقربها؟</p>
+                    <div class="answer-box">
+                        <button onclick="showLocationMessage('مسقط', 'question2')">مسقط</button>
+                        <button onclick="showLocationMessage('صور', 'question2')">صور</button>
+                        <button onclick="showLocationMessage('نزوى', 'question2')">نزوى</button>
+                        <button onclick="showLocationMessage('صحم', 'question2')">صحم</button>
+                    </div>
+                </div>
+                <div class="question-box">${message}</div>
+            `;
+        }
+
+        function showLocationMessage(city, questionId) {
+            let locationMessage;
+            if (city === 'صحم') {
+                locationMessage = "آهٍ يا صحم، أنتِ المدينة التي تحتضن حبيبتي إيمان، فكل دروبي تؤدي إلى قلبكِ يا صحم الحُب.";
+                showQuestion3(locationMessage);  // الانتقال إلى السؤال الثالث إذا كانت الإجابة صحيحة
+            } else if (city === 'مسقط') {
+                locationMessage = "مسقط، رغم جمالك، إلا أن شوقي يهيم في صحم، موطن حبيبتي.";
+                showOnlyMessage(locationMessage, questionId);
+            } else if (city === 'صور') {
+                locationMessage = "صور، قد تكونين مدينة البحر، لكن قلبي يرسي فقط على شواطئ صحم، حيث تُقيم إيمان.";
+                showOnlyMessage(locationMessage, questionId);
+            } else if (city === 'نزوى') {
+                locationMessage = "نزوى، قد تكبرين بالنخيل، لكن صحم تحوي زهرتي إيمان، وكلُّ اشتياقي لها.";
+                showOnlyMessage(locationMessage, questionId);
+            }
+        }
+
+        function showQuestion3(locationMessage) {
+            document.getElementById("game").innerHTML = `
+                <div id="question3" class="question-box">
+                    <p>يا إيمان، إن قلت أحبك قلبي يعجز عن وصف ما بي، فهل لي بأن أسألك، كيف ألقاك؟</p>
+                    <div class="answer-box">
+                        <button onclick="finalMessage()">في سهول الأرض</button>
+                        <button onclick="finalMessage()">في عمق البحر</button>
+                        <button onclick="finalMessage()">في سكني الأجفان</button>
+                        <button onclick="finalMessage()">في قلبي أبداً</button>
+                    </div>
+                </div>
+                <div class="question-box">${locationMessage}</div>
+            `;
+        }
+
+        function finalMessage() {
+            document.getElementById("game").innerHTML = `
+                <div class="question-box">
+                    <p>يا إيمان، وجودك هو الجواب، إنكِ قصيدة حبي، وحرف عشقي، ونبض قلبي. كيف أوصف حباً يملأ السماء والأرض والنجوم؟!</p>
+                </div>
+                <button class="back-button" onclick="showQuestion3()">رجوع</button>
+            `;
+        }
+
+        // عرض السؤال الأول عند بدء اللعبة
+        showQuestion1();
+    </script>
+
+</body>
+</html>
